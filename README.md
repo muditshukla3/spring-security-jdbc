@@ -1,5 +1,12 @@
 # Spring Security with JDBC
-    Sample application with Spring Security JDBC implementation.This application uses in memory h2 database for database operations.
-    1- schema.sql - initialize the default schema which spring-security expects.
-    2- data.sql - bootstrap the initial data. 
+    Sample application demonstrating basic authentication and authorization using spring security via jdbc. This application uses in memory h2 database for database operations.
+    1- schema.sql - Initialize the custom schema.
+    2- data.sql - Bootstrap the initial data with 
+       
+       | Username | Password | Role |
+       | :---: | :---: | :---: |
+       | user | user123 | ROLE_USER |
+       | admin | admin123 | ROLE_USER |
+    
+     
   

@@ -1,6 +1,7 @@
 package com.ms.com.ms.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,15 +19,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     DataSource dataSource;
 
+    @Value("${user.byusername}")
+    String usersByUserNameQuery;
+
+    @Value("${authorities.byusername}")
+    String authoritiesByUserNameQuery;
+
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource);
+        System.out.println(usersByUserNameQuery);
+        System.out.println(authoritiesByUserNameQuery);
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .usersByUsernameQuery(usersByUserNameQuery)
+                .authoritiesByUsernameQuery(authoritiesByUserNameQuery);
+
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/admin").hasRole("USER")
+                .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/user").hasAnyRole("ADMIN","USER")
                 .antMatchers("/").permitAll().and().httpBasic();
     }

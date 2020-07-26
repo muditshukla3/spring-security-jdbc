@@ -1,0 +1,5 @@
+user:
+  byusername: select username,password,enabled from custom_users where username = ?
+
+authorities:
+  byusername: select username,authority from custom_authorities where username = ?
